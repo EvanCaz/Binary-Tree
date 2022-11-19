@@ -60,10 +60,6 @@ bool BinTree::removeNode(int id){
 }
 
 
-bool BinTree::contains(int id){
-    // not sure the purpose of this method
-    return false;
-}
 
 int BinTree::getHeight(){
     // calclates hieght each time its called
@@ -105,7 +101,7 @@ bool BinTree::addNode(int id, const string* data){
 bool BinTree::addNode(DataNode* newNode, DataNode** curRoot){
     //called by puclic method and passed root and true root, recursion and binary search to find spot then add
     bool sucess = false;
-    if((!(*curRoot))){ // stopping criteria, if the current root does not equal null
+    if(*curRoot != NULL){ // stopping criteria, if the current root does not equal null
         if(newNode->data.id < (*curRoot)->data.id){ // binary serach, if id is less then id at current spot, go left ignore all right
             sucess = addNode(newNode, &(*curRoot)->left);
         } else if (newNode->data.id > (*curRoot)->data.id){ // if id greater than current, ignore all left and go right
@@ -132,6 +128,11 @@ bool BinTree::getNode(Data* temp, int id){ // uses private method to call and ac
 }
 
 bool BinTree::contains(int id, DataNode* root){
+    return false;
+}
+
+bool BinTree::contains(int id){
+    // not sure the purpose of this method
     return false;
 }
 
