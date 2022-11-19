@@ -92,7 +92,7 @@ bool BinTree::removeNode(int id){
     if(id>0){
         int tempcount = count;
         root = removeNode(id, root);
-        if(count > tempcount){
+        if(count < tempcount){
             sucess = true;
         }
     }
@@ -107,20 +107,22 @@ DataNode* BinTree::removeNode(int id, DataNode* curRoot){
             curRoot->right = removeNode(id, curRoot->right);
         } else { // if we find the id
             DataNode* temp = new DataNode; // create temp DataNode
-            count--;
             if(curRoot->left == NULL){
                 temp = curRoot->right; // save the right child and replace curRoot with temp
                 curRoot = temp;
                 delete curRoot; // becomes null pointer does not delete struct obj i think
+                count--;
             } else if(curRoot->right == NULL){
                 temp = curRoot->left;
                 curRoot = temp;
                 delete curRoot;
+                count--;
             } else { // root with two children
                 temp = findSucessor(curRoot->right);
                 curRoot->data.id = temp->data.id;
                 curRoot->data.information = temp->data.information;
                 curRoot->right = removeNode(temp->data.id, curRoot->right);
+                count--;
             }
         }
         return curRoot;
