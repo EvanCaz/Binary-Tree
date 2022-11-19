@@ -214,29 +214,49 @@ int BinTree::getHeight(DataNode* curRoot){
 }
 
 void BinTree::displayTree(){
-    // cannot do yet
+    std::cout << "Pre-Order Traversal" << std::endl;
+    displayPreOrder();
+    std::cout << std::endl;
+    std::cout << "In-Order Traversal" << std::endl;
+    displayInOrder();
+    std::cout << std::endl;
+    std::cout << "Post-Order Traversal" << std::endl;
+    displayPostOrder();
+    std::cout << std::endl;
 }
 
 void BinTree::displayInOrder(){
-
+    displayInOrder(root);
 }
 
 void BinTree::displayPostOrder(){
-
+    displayPostOrder(root);
 }
 
 void BinTree::displayPreOrder(){
-
+    displayPreOrder(root);
 }
 
-void BinTree::displayInOrder(DataNode* root){
-    
+void BinTree::displayInOrder(DataNode* curRoot){
+    if(curRoot != NULL){
+        displayInOrder(curRoot->left);
+        std::cout << curRoot->data.id << " " << curRoot->data.information << std::endl;
+        displayInOrder(curRoot->right);
+    }
 }
 
-void BinTree::displayPostOrder(DataNode* root){
-
+void BinTree::displayPostOrder(DataNode* curRoot){
+    if(curRoot != NULL){
+        displayPreOrder(curRoot->left);
+        displayPreOrder(curRoot->right);
+        std::cout << curRoot->data.id << " " << curRoot->data.information << std::endl;
+    }
 }
 
-void BinTree::displayPreOrder(DataNode* root){
-
+void BinTree::displayPreOrder(DataNode* curRoot){
+    if(curRoot != NULL){
+        std::cout << curRoot->data.id << " " << curRoot->data.information << std::endl;
+        displayPreOrder(curRoot->left);
+        displayPreOrder(curRoot->right);
+    }
 }
