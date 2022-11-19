@@ -118,14 +118,36 @@ DataNode* BinTree::removeNode(int id, DataNode* root){ // throws warning for no 
 
 }
 
-bool BinTree::getNode(Data* temp, int id, DataNode* curRoot){
-    return false;
-}
-
 bool BinTree::getNode(Data* temp, int id){ // uses private method to call and access root
     // uses binary search to find the node and fills temp struct
-    return false;
+    bool sucess = false;
+    if(id>0){
+        sucess = getNode(temp, id, root);
+    }
+    return sucess;
 }
+
+bool BinTree::getNode(Data* temp, int id, DataNode* curRoot){
+    bool sucess = false;
+    if(curRoot == NULL){
+        sucess = false;
+    } else { // if root not empty
+        if(id == curRoot->data.id){
+            sucess = true;
+            temp->id = curRoot->data.id;
+            temp->information = curRoot->data.information;
+        } else {
+            if(id < curRoot->data.id){ // binary serach, if id is less then id at current spot, go left ignore all right
+                sucess = contains(id, curRoot->left);
+            } else if (id > curRoot->data.id){ // if id greater than current, ignore all left and go right
+                sucess = contains(id, curRoot->right);
+            }
+        }
+    }
+    return sucess;
+}
+
+
 
 bool BinTree::contains(int id){
     bool sucess = false;
