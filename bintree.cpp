@@ -127,13 +127,30 @@ bool BinTree::getNode(Data* temp, int id){ // uses private method to call and ac
     return false;
 }
 
-bool BinTree::contains(int id, DataNode* root){
-    return false;
+bool BinTree::contains(int id){
+    bool sucess = false;
+    if(id > 0){
+        sucess = contains(id, root);
+    }
+    return sucess;
 }
 
-bool BinTree::contains(int id){
-    // not sure the purpose of this method
-    return false;
+bool BinTree::contains(int id, DataNode* curRoot){
+    bool sucess = false;
+    if(curRoot == NULL){
+        sucess = false;
+    } else { // if root not empty
+        if(id == curRoot->data.id){
+            sucess = true;
+        } else {
+            if(id < curRoot->data.id){ // binary serach, if id is less then id at current spot, go left ignore all right
+                sucess = contains(id, curRoot->left);
+            } else if (id > curRoot->data.id){ // if id greater than current, ignore all left and go right
+                sucess = contains(id, curRoot->right);
+            }
+        }
+    }
+    return sucess;
 }
 
 int BinTree::getHeight(DataNode* root){
