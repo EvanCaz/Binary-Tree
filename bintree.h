@@ -19,7 +19,7 @@ class BinTree{
     void clear(DataNode*);
     bool addNode(DataNode*, DataNode**);
     DataNode* removeNode(int, DataNode*);
-    bool getNode(int, Data*, DataNode*);
+    bool getNode(Data*, int, DataNode*);
     bool contains(int, DataNode*);
     int getHeight(DataNode*);
     void displayPreOrder(DataNode*);
@@ -27,6 +27,7 @@ class BinTree{
     void displayInOrder(DataNode*);
 
     public:
+    //without overloads
     BinTree();
     ~BinTree();
     bool isEmpty();
@@ -34,10 +35,11 @@ class BinTree{
     bool getRootData(Data*);
     void displayTree();
 
+    // with overloads
     void clear();
     bool addNode(int, const string*);
     bool removeNode(int);
-    bool getNode(int, Data*);
+    bool getNode(Data*, int);
     bool contains(int);
     int getHeight();
     void displayPreOrder();

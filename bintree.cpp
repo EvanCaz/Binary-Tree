@@ -59,10 +59,6 @@ bool BinTree::removeNode(int id){
     return false;
 }
 
-bool BinTree::getNode(int id, Data* temp){ // uses private method to call and access root
-    // uses binary search to find the node and fills temp struct
-    return false;
-}
 
 bool BinTree::contains(int id){
     // not sure the purpose of this method
@@ -111,9 +107,9 @@ bool BinTree::addNode(DataNode* newNode, DataNode** curRoot){
     bool sucess = false;
     if((!(*curRoot))){ // stopping criteria, if the current root does not equal null
         if(newNode->data.id < (*curRoot)->data.id){ // binary serach, if id is less then id at current spot, go left ignore all right
-            sucess = addNode(newNode, curRoot->left);
+            sucess = addNode(newNode, &(*curRoot)->left);
         } else if (newNode->data.id > (*curRoot)->data.id){ // if id greater than current, ignore all left and go right
-            sucess = addNode(newNode, curRoot->right);
+            sucess = addNode(newNode, &(*curRoot)->right);
         }
     } else { // if curRoot does equal null, add newNode with specifed case for left and right
         *curRoot = newNode;
@@ -126,7 +122,12 @@ DataNode* BinTree::removeNode(int id, DataNode* root){ // throws warning for no 
 
 }
 
-bool BinTree::getNode(int id, Data* temp, DataNode* root){
+bool BinTree::getNode(Data* temp, int id, DataNode* curRoot){
+    return false;
+}
+
+bool BinTree::getNode(Data* temp, int id){ // uses private method to call and access root
+    // uses binary search to find the node and fills temp struct
     return false;
 }
 
