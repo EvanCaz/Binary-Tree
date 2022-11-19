@@ -50,20 +50,18 @@ void BinTree::displayTree(){
 // overloaded public methods
 
 void BinTree::clear(){
-    // sets root to null and deallocates all memory
+    clear(root);
 }
 
-
-bool BinTree::removeNode(int id){
-    // removes the node, needs cases for removing true root, other roots, and leafs
-    return false;
-}
-
-
-
-int BinTree::getHeight(){
-    // calclates hieght each time its called
-    return 0;
+void BinTree::clear(DataNode* curRoot){
+    count = 0;
+    if(curRoot != NULL){
+        clear(curRoot->left);
+        clear(curRoot->right);
+        curRoot->left = NULL;
+        curRoot->right = NULL;
+        delete curRoot;
+    }
 }
 
 void BinTree::displayInOrder(){
@@ -80,9 +78,6 @@ void BinTree::displayPreOrder(){
 
 // private overloading methods
 
-void BinTree::clear(DataNode* root){
-
-}
 
 bool BinTree::addNode(int id, const string* data){
     // creaets a node, finds location, inserts node
@@ -94,6 +89,9 @@ bool BinTree::addNode(int id, const string* data){
         newNode->left = NULL;
         newNode->right = NULL; 
         sucess = addNode(newNode, &root); // pass adress of true root and address of new node
+        if(sucess){
+            count++;
+        }
     }
     return sucess;
 }
@@ -112,6 +110,11 @@ bool BinTree::addNode(DataNode* newNode, DataNode** curRoot){
         sucess = true;
     }
     return sucess;
+}
+
+bool BinTree::removeNode(int id){
+    // removes the node, needs cases for removing true root, other roots, and leafs
+    return false;
 }
 
 DataNode* BinTree::removeNode(int id, DataNode* root){ // throws warning for no return statment
@@ -175,8 +178,22 @@ bool BinTree::contains(int id, DataNode* curRoot){
     return sucess;
 }
 
-int BinTree::getHeight(DataNode* root){
-    return 0;
+int BinTree::getHeight(){
+    // calclates hieght each time its called
+    bool sucess = false;
+    sucess = getHeight(root);
+    return sucess;
+}
+
+int BinTree::getHeight(DataNode* curRoot){
+    int lh = 0, rh = 0;
+    int num;
+    if(curRoot == NULL){
+        num = 0;
+    } else {
+
+    }
+    return num;
 }
 
 void BinTree::displayInOrder(DataNode* root){
