@@ -26,6 +26,8 @@ class BinTree{
     void displayPostOrder(DataNode*);
     void displayInOrder(DataNode*);
 
+    DataNode* findSucessor(DataNode*);
+
     public:
     //without overloads
     BinTree();

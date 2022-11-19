@@ -5,20 +5,16 @@
 **********************/
 
 #include "bintree.h"
-
-
 // class init
-
 BinTree::BinTree(){
     count = 0;
     root = NULL;
 }
+
 BinTree::~BinTree(){
     //destructor idk yet
 }
-
 // public methods
-
 bool BinTree::isEmpty(){
     return root == NULL;
 }
@@ -28,27 +24,19 @@ int BinTree::getCount(){
 }
 
 bool BinTree::getRootData(Data* temp){
-    // return data in the true root
-    // uses current marker for familiarirty
-
-    DataNode* current = root; // sets current to the root(head)
     bool sucess = false;
-    if(current == NULL){
+    if(root == NULL){
         temp->id = -1;
         temp->information = "";
     } else {
-        temp->id = current->data.id;
-        temp->information = current->data.information;
+        temp->id = root->data.id;
+        temp->information = root->data.information;
+        sucess = true;  
     }
     return sucess;
 }
 
-void BinTree::displayTree(){
-    // cannot do yet
-}
-
 // overloaded public methods
-
 void BinTree::clear(){
     clear(root);
 }
@@ -64,21 +52,7 @@ void BinTree::clear(DataNode* curRoot){
     }
 }
 
-void BinTree::displayInOrder(){
-
-}
-
-void BinTree::displayPostOrder(){
-
-}
-
-void BinTree::displayPreOrder(){
-
-}
-
 // private overloading methods
-
-
 bool BinTree::addNode(int id, const string* data){
     // creaets a node, finds location, inserts node
     bool sucess = false;
@@ -114,11 +88,53 @@ bool BinTree::addNode(DataNode* newNode, DataNode** curRoot){
 
 bool BinTree::removeNode(int id){
     // removes the node, needs cases for removing true root, other roots, and leafs
-    return false;
+    int sucess = false;
+    if(id>0){
+        int tempcount = count;
+        root = removeNode(id, root);
+        if(count > tempcount){
+            sucess = true;
+        }
+    }
+    return sucess;
 }
 
-DataNode* BinTree::removeNode(int id, DataNode* root){ // throws warning for no return statment
+DataNode* BinTree::removeNode(int id, DataNode* curRoot){ 
+    if(curRoot != NULL){
+        if(id < curRoot->data.id){ // binary search until node is found or not found
+            curRoot->left = removeNode(id, curRoot->left);
+        } else if (id > curRoot->data.id){ // binary search until node is found or not found
+            curRoot->right = removeNode(id, curRoot->right);
+        } else { // if we find the id
+            DataNode* temp = new DataNode; // create temp DataNode
+            count--;
+            if(curRoot->left == NULL){
+                temp = curRoot->right; // save the right child and replace curRoot with temp
+                curRoot = temp;
+                delete curRoot; // becomes null pointer does not delete struct obj i think
+            } else if(curRoot->right == NULL){
+                temp = curRoot->left;
+                curRoot = temp;
+                delete curRoot;
+            } else { // root with two children
+                temp = findSucessor(curRoot->right);
+                curRoot->data.id = temp->data.id;
+                curRoot->data.information = temp->data.information;
+                curRoot->right = removeNode(temp->data.id, curRoot->right);
+            }
+        }
+        return curRoot;
+    } else { // if curRoot is empty just return it making stopping criteria
+        return curRoot;
+    }
+}
 
+DataNode* BinTree::findSucessor(DataNode* node){
+    DataNode* current = node;
+    while(current && current->left != NULL){
+        current = current->left;
+    }
+    return current;
 }
 
 bool BinTree::getNode(Data* temp, int id){ // uses private method to call and access root
@@ -149,8 +165,6 @@ bool BinTree::getNode(Data* temp, int id, DataNode* curRoot){
     }
     return sucess;
 }
-
-
 
 bool BinTree::contains(int id){
     bool sucess = false;
@@ -187,17 +201,34 @@ int BinTree::getHeight(){
 
 int BinTree::getHeight(DataNode* curRoot){
     int lh = 0, rh = 0;
-    int num;
+    int num = 1;
     if(curRoot == NULL){
         num = 0;
     } else {
-
+        lh = getHeight(curRoot->left);
+        rh = getHeight(curRoot->right);
     }
-    return num;
+    return (num * (lh + rh + 1));
+}
+
+void BinTree::displayTree(){
+    // cannot do yet
+}
+
+void BinTree::displayInOrder(){
+
+}
+
+void BinTree::displayPostOrder(){
+
+}
+
+void BinTree::displayPreOrder(){
+
 }
 
 void BinTree::displayInOrder(DataNode* root){
-
+    
 }
 
 void BinTree::displayPostOrder(DataNode* root){
