@@ -209,6 +209,7 @@ int BinTree::getHeight(DataNode* curRoot){ // needs to count everytime you backt
     } else {
         num = 0;
     }
+    // std::cout << num << std::endl; // testing, count corectly gets counted and then set back to 1 before last return
     return num;
 }
 
