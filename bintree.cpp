@@ -5,16 +5,15 @@
 **********************/
 
 #include "bintree.h"
-// class init
 BinTree::BinTree(){
     count = 0;
     root = NULL;
 }
 
 BinTree::~BinTree(){
-    //destructor idk yet
+    clear();
 }
-// public methods
+
 bool BinTree::isEmpty(){
     return root == NULL;
 }
@@ -36,23 +35,23 @@ bool BinTree::getRootData(Data* temp){
     return sucess;
 }
 
-// overloaded public methods
 void BinTree::clear(){
     clear(root);
+    count = 0;
 }
 
 void BinTree::clear(DataNode* curRoot){
-    count = 0;
+    root = NULL;
     if(curRoot != NULL){
         clear(curRoot->left);
         clear(curRoot->right);
         curRoot->left = NULL;
         curRoot->right = NULL;
-        delete curRoot;
+        delete curRoot; 
     }
+    root = NULL;
 }
 
-// private overloading methods
 bool BinTree::addNode(int id, const string* data){
     // creaets a node, finds location, inserts node
     bool sucess = false;
@@ -195,22 +194,22 @@ bool BinTree::contains(int id, DataNode* curRoot){
 }
 
 int BinTree::getHeight(){
-    // calclates hieght each time its called
     bool sucess = false;
     sucess = getHeight(root);
     return sucess;
 }
 
-int BinTree::getHeight(DataNode* curRoot){
+int BinTree::getHeight(DataNode* curRoot){ // needs to count everytime you backtrack
     int lh = 0, rh = 0;
-    int num = 1;
-    if(curRoot == NULL){
-        num = 0;
-    } else {
+    int num;
+    if(curRoot != NULL){
         lh = getHeight(curRoot->left);
         rh = getHeight(curRoot->right);
+        num = (rh + lh) + 1;
+    } else {
+        num = 0;
     }
-    return (num * (lh + rh + 1));
+    return num;
 }
 
 void BinTree::displayTree(){
