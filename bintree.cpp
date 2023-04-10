@@ -98,7 +98,7 @@ bool BinTree::removeNode(int id){
     return sucess;
 }
 
-DataNode* BinTree::removeNode(int id, DataNode* curRoot){ 
+DataNode* BinTree::removeNode(int id, DataNode* curRoot){
     if(curRoot != NULL){
         if(id < curRoot->data.id){ // binary search until node is found or not found
             curRoot->left = removeNode(id, curRoot->left);
